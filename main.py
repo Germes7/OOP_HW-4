@@ -118,7 +118,9 @@ class Library:
         self.__list_employees = []
 
     def __str__(self):
-        pass
+        return (f"Библиотека: {self.__library_name}, находящаяся по адресу: {self.__address}.\n"
+                f"Список книг: {self.__list_books}.\n"
+                f"Сотрудники: {self.__list_employees}")
 
     def get_library_name(self):
         return self.__library_name
@@ -168,3 +170,5 @@ class Library:
 
     library_name = property(get_library_name, set_library_name)
     address = property(get_address, set_address)
+
+B = Library("Ленинская", "г. Волгоград, пр. Ленина, 15")
