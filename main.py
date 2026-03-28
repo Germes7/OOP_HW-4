@@ -103,3 +103,68 @@ class Student:
 # библиотеки, книг, сотрудников, жанров и контактной информации. После того как вы построите диаграмму
 # классов, вам нужно будет написать на языке Python реализацию строго по диаграмме.
 
+class Library:
+
+    __library_name: str
+    __address: str
+    __list_books: list["Book"]
+    __list_employees: list["Employee"]
+
+    def __init__(self, library_name: str, address: str):
+
+        self.__library_name = library_name
+        self.__address = address
+        self.__list_books = []
+        self.__list_employees = []
+
+    def __str__(self):
+        pass
+
+    def get_library_name(self):
+        return self.__library_name
+
+    def get_address(self):
+        return self.__address
+
+    def get_list_books(self):
+        return self.__list_books
+
+    def get_list_employees(self):
+        return self.__list_employees
+
+    def set_address(self, new_adress):
+        self.__address = new_adress
+
+    def set_library_name(self, new_libray_name):
+        self.__library_name = new_libray_name
+
+    def add_book(self, new_book: "Book"):
+
+        if isinstance(new_book, Book):
+
+            if new_book not in self.__list_books:
+                self.__list_books.append(new_book)
+
+        else: raise ValueError()
+
+    def remove_book(self, book: "Book"):
+
+        if book in self.__list_books:
+            self.__list_books.remove(book)
+
+    def add_employee(self, new_employee: "Employee"):
+
+        if isinstance(new_employee, Employee):
+
+            if new_employee not in self.__list_employees:
+                self.__list_employees.append(new_employee)
+
+        else: raise ValueError()
+
+    def remove_employee(self, employee: "Employee"):
+
+         if employee in self.__list_employees:
+             self.__list_employees.remove(employee)
+
+    library_name = property(get_library_name, set_library_name)
+    address = property(get_address, set_address)
