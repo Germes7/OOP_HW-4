@@ -112,6 +112,12 @@ class Library:
 
     def __init__(self, library_name: str, address: str):
 
+        if not isinstance(library_name, str):
+            raise ValueError("__library_name должно быть строкой")
+
+        if not isinstance(address, str):
+            raise ValueError("__address должно быть строкой")
+
         self.__library_name = library_name
         self.__address = address
         self.__list_books = []
@@ -140,12 +146,12 @@ class Library:
     def set_library_name(self, new_libray_name):
         self.__library_name = new_libray_name
 
-    def add_book(self, new_book: "Book"):
+    def add_book(self, book: "Book"):
 
-        if isinstance(new_book, Book):
+        if isinstance(book, Book):
 
-            if new_book not in self.__list_books:
-                self.__list_books.append(new_book)
+            if book not in self.__list_books:
+                self.__list_books.append(book)
 
         else: raise ValueError()
 
@@ -154,12 +160,12 @@ class Library:
         if book in self.__list_books:
             self.__list_books.remove(book)
 
-    def add_employee(self, new_employee: "Employee"):
+    def add_employee(self, employee: "Employee"):
 
-        if isinstance(new_employee, Employee):
+        if isinstance(employee, Employee):
 
-            if new_employee not in self.__list_employees:
-                self.__list_employees.append(new_employee)
+            if employee not in self.__list_employees:
+                self.__list_employees.append(employee)
 
         else: raise ValueError()
 
@@ -171,4 +177,66 @@ class Library:
     library_name = property(get_library_name, set_library_name)
     address = property(get_address, set_address)
 
-B = Library("Ленинская", "г. Волгоград, пр. Ленина, 15")
+
+class Book:
+
+    ID_counter = 1
+
+    __title: str
+    __autor: str
+    __year_publication: int
+    __id: int
+    __list_genre: list["Genre"]
+    def __init__(self, title: str, autor:str, year_publication: int):
+
+        if not isinstance(title, str): raise ValueError("title должна быть строкой")
+        if not isinstance(autor, str): raise ValueError("autor должна быть строкой")
+        if not isinstance(year_publication, int): raise ValueError("year_publication должна быть числом int")
+
+        self.__title = title
+        self.__autor = autor
+        self.__year_publication = year_publication
+        self.__id = Book.ID_counter
+        Book.ID_counter += 1
+        self.__list_genre = []
+
+    def __str__(self):
+        return (f"Название книги: {self.__title}\n"
+                f"Автор: {self.__autor}\n"
+                f"Год издания: {self.__year_publication} г.\n"
+                f"Жанр: {self.__list_genre}; ID книги: {self.__id}")
+
+    def get_title(self):
+        return self.__title
+
+    def get_autor(self):
+        return self.__autor
+
+    def get_year(self):
+        return self.__year_publication
+
+    def get_id(self):
+        return self.__id
+
+    def get_list_genres(self):
+        return self.__list_genre
+
+    def set_year(self, new_year):
+
+        if new_year != self.__year_publication:
+            self.__year_publication = new_year
+
+    def add_genre(self, genre: "Genre"):
+
+        if isinstance(genre, Genre):
+
+            if genre not in self.__list_genre:
+                self.__list_genre.append(genre)
+
+        else: raise ValueError()
+
+    def remove_genre(self, genre: "Genre"):
+
+        if genre in self.__list_genre:
+            self.__list_genre.remove(genre)
+
