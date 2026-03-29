@@ -240,3 +240,27 @@ class Book:
         if genre in self.__list_genre:
             self.__list_genre.remove(genre)
 
+
+class Genre:
+
+    __genre_book: str
+    __genre_description: str
+    def __init__(self, genre_book: str, genre_description: str):
+
+        self.__genre_book = genre_book
+        self.__genre_description = genre_description
+
+    def __str__(self):
+        return f"Жанр книги: {self.__genre_book}; Описание жанра {self.__genre_description}"
+
+    def get_name_genre(self):
+        return self.__genre_book
+
+    def get_genre_description(self):
+        return self.__genre_description
+
+
+    def set_name_genre(self, genre):
+
+        if genre not in self.__genre_book:
+            self.__genre_book = genre
