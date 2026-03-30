@@ -272,6 +272,32 @@ class Genre:
             self.__genre_book = genre
 
 
+class ContactInfo:
+
+    __type_address: str
+    __value_address: str
+    __type_telefone: str
+
+
+
+
+    def __init__(self, type_address: str, value_address: str, type_telefone_number: str, value_telefone: int, type_email: str, value_email: str):
+
+        self.__type_address = type_address
+        self.__value_address = value_address
+
+        + get_value_addres: str
+
+        + get_value_telefone: int
+
+        + get_value_email: str
+
+        + set_value_telefon(): None
+
+        + set_value_address(): None
+
+        + set_value_email(): None
+
 class Employee:
 
     ID_employee = 1
