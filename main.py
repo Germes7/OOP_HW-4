@@ -107,7 +107,7 @@ class Library:
 
     __library_name: str
     __address: str
-    __list_books: list["Book"]
+    __list_books: list[Book]
     __list_employees: list["Employee"]
 
     def __init__(self, library_name: str, address: str):
@@ -128,22 +128,22 @@ class Library:
                 f"Список книг: {self.__list_books}.\n"
                 f"Сотрудники: {self.__list_employees}")
 
-    def get_library_name(self):
+    def _get_library_name(self):
         return self.__library_name
 
-    def get_address(self):
+    def _get_address(self):
         return self.__address
 
-    def get_list_books(self):
+    def _get_list_books(self):
         return self.__list_books
 
-    def get_list_employees(self):
+    def _get_list_employees(self):
         return self.__list_employees
 
-    def set_address(self, new_adress):
-        self.__address = new_adress
+    def _set_address(self, new_address):
+        self.__address = new_address
 
-    def set_library_name(self, new_libray_name):
+    def _set_library_name(self, new_libray_name):
         self.__library_name = new_libray_name
 
     def add_book(self, book: "Book"):
@@ -155,7 +155,7 @@ class Library:
 
         else: raise ValueError()
 
-    def remove_book(self, book: "Book"):
+    def remove_book(self, book: Book):
 
         if book in self.__list_books:
             self.__list_books.remove(book)
@@ -174,8 +174,9 @@ class Library:
          if employee in self.__list_employees:
              self.__list_employees.remove(employee)
 
-    library_name = property(get_library_name, set_library_name)
-    address = property(get_address, set_address)
+
+    library_name = property(_get_library_name, _set_library_name)
+    address = property(_get_address, _set_address)
 
 
 class Book:
@@ -186,7 +187,7 @@ class Book:
     __autor: str
     __year_publication: int
     __id: int
-    __list_genre: list["Genre"]
+    __list_genre: list[Genre]
     def __init__(self, title: str, autor:str, year_publication: int):
 
         if not isinstance(title, str): raise ValueError("title должна быть строкой")
@@ -205,6 +206,9 @@ class Book:
                 f"Автор: {self.__autor}\n"
                 f"Год издания: {self.__year_publication} г.\n"
                 f"Жанр: {self.__list_genre}; ID книги: {self.__id}")
+
+    def __repr__(self):
+        return f"'{self.__title}' ({self.__autor})"
 
     def get_title(self):
         return self.__title
@@ -226,7 +230,7 @@ class Book:
         if new_year != self.__year_publication:
             self.__year_publication = new_year
 
-    def add_genre(self, genre: "Genre"):
+    def add_genre(self, genre: Genre):
 
         if isinstance(genre, Genre):
 
@@ -235,7 +239,7 @@ class Book:
 
         else: raise ValueError()
 
-    def remove_genre(self, genre: "Genre"):
+    def remove_genre(self, genre: Genre):
 
         if genre in self.__list_genre:
             self.__list_genre.remove(genre)
@@ -253,14 +257,68 @@ class Genre:
     def __str__(self):
         return f"Жанр книги: {self.__genre_book}; Описание жанра {self.__genre_description}"
 
+    def __repr__(self):
+        return f"{self.__genre_book}"
+
     def get_name_genre(self):
         return self.__genre_book
 
     def get_genre_description(self):
         return self.__genre_description
 
-
     def set_name_genre(self, genre):
 
         if genre not in self.__genre_book:
             self.__genre_book = genre
+
+
+class Employee:
+
+    ID_employee = 1
+    __name: str
+    __post: str
+    __id_employee: int
+    __contactinfo: ContactInfo
+
+    def __init__(self, name: str, post: str):
+
+        self.__name = name
+        self.__post = post
+        self.__id_employee = Employee.ID_employee
+        Employee.ID_employee += 1
+        self.__contactinfo = None
+
+    def __str__(self):
+        return (f"Сотрудник имя:{self.__name}\n"
+                f"Должность: {self.__post}; ID сотрудника: {self.__id_employee}\n"
+                f"Контактная информация: {self.__contactinfo}")
+
+    def __repr__(self):
+        return f"{self.__name} ({self.__post})"
+
+    def get_name(self):
+        return self.__name
+
+    def get_position(self):
+        return self.__post
+
+    def get_id(self):
+        return self.__id_employee
+
+    def get_contact_info(self):
+        return self.__contactinfo
+
+    def set_position(self, position):
+        self.__post = position
+
+    def add_contact_info(self, contact: "ContactInfo"):
+
+        if isinstance(contact, ContactInfo):
+
+            self.__contactinfo = contact
+
+        else: raise ValueError()
+
+    def remove_contact_info(self,):
+
+        self.__contactinfo = None
