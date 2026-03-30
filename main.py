@@ -276,27 +276,50 @@ class ContactInfo:
 
     __type_address: str
     __value_address: str
-    __type_telefone: str
+    __type_telephone_number: str
+    __value_telephone_number: int
+    __type_email: str
+    __value_email: str
 
+    def __init__(self, type_address: str, value_address: str, type_telephone_number: str, value_telephone_number: str, type_email: str, value_email: str):
 
-
-
-    def __init__(self, type_address: str, value_address: str, type_telefone_number: str, value_telefone: int, type_email: str, value_email: str):
+        if not isinstance(value_telephone_number, str): raise ValueError("value_telephone_number -должен быть строкой")
 
         self.__type_address = type_address
         self.__value_address = value_address
+        self.__type_telephone_number = type_telephone_number
+        self.__value_telephone_number = value_telephone_number
+        self.__type_email = type_email
+        self.__value_email = value_email
 
-        + get_value_addres: str
+    def __str__(self):
+        return (f"{self.__type_address}: {self.__value_address}\n"
+                f"{self.__type_telephone_number}: {self.__value_telephone_number}\n"
+                f"{self.__type_email}: {self.__value_email}")
 
-        + get_value_telefone: int
+    def __repr__(self):
+        return f"Contact({self.__value_email})"
 
-        + get_value_email: str
+    def get_value_address(self):
+        return self.__value_address
 
-        + set_value_telefon(): None
+    def get_value_telephone_number(self):
+        return self.__value_telephone_number
 
-        + set_value_address(): None
+    def get_value_email(self):
+        return self.__value_email
 
-        + set_value_email(): None
+    def set_value_telephone_number(self, number):
+        if number not in self.__value_telephone_number:
+            self.__value_telephone_number = number
+
+    def set_value_address(self, address):
+        if not address in self.__value_address:
+            self.__value_address = address
+
+    def set_value_email(self, email):
+        if email not in self.__value_email:
+            self.__value_email = email
 
 class Employee:
 
@@ -315,7 +338,7 @@ class Employee:
         self.__contactinfo = None
 
     def __str__(self):
-        return (f"Сотрудник имя:{self.__name}\n"
+        return (f"Сотрудник имя: {self.__name}\n"
                 f"Должность: {self.__post}; ID сотрудника: {self.__id_employee}\n"
                 f"Контактная информация: {self.__contactinfo}")
 
