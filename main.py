@@ -283,7 +283,7 @@ class ContactInfo:
 
     def __init__(self, type_address: str, value_address: str, type_telephone_number: str, value_telephone_number: str, type_email: str, value_email: str):
 
-        if not isinstance(value_telephone_number, str): raise ValueError("value_telephone_number -должен быть строкой")
+        if not isinstance(value_telephone_number, str): raise ValueError("value_telephone_number -должна быть строкой")
 
         self.__type_address = type_address
         self.__value_address = value_address
