@@ -371,3 +371,91 @@ class Employee:
     def remove_contact_info(self,):
 
         self.__contactinfo = None
+
+
+# Задача №3.
+# Вы хотите создать систему для управления автосалоном. В этом автосалоне продается множество различных автомобилей
+# разных брендов, моделей и годов выпуска. Также у вас есть продавцы, которые работают в салоне, и клиенты, которые
+# приходят покупать или заказывать автомобили.
+# Ваша задача сформировать диаграмму классов, разработать эти классы и написать сценарии использования объектов этих
+# классов. Например, вы можете создать несколько автомобилей, продавцов и клиентов, зарегистрировать их в автосалоне,
+# продать автомобиль клиенту через продавца, изменить цену автомобиля и т.д.
+
+class Car:
+
+    CONST_SOLD = 0  # Продана
+    CONST_EXPECTED = 1  # Ожидается
+    CONST_IS_STOCK = 2  # В наличии
+
+    __brand: str
+    __model: str
+    __year_manufacture: int
+    __price: float
+    __status: int
+
+    def __init__(self, brand: str, model: str, year_manufacture: int, price: float, status: int = CONST_IS_STOCK):
+
+        if not isinstance(status, int) or not 0 <= status <= 2: raise ValueError("Статус должен быть натуральное числом в диапазоне от 0 до 2")
+
+        self.__brand = brand
+        self.__model = model
+        self.__year_manufacture = year_manufacture
+        self.__price = price
+        self.__status = status
+
+    def __str__(self):
+
+        status_info = ""
+        if self.__status == self.CONST_SOLD: status_info = "Нет в наличии. Продано"
+        elif self.__status == self.CONST_EXPECTED: status_info = "Ожидается"
+        elif self.__status == self.CONST_IS_STOCK: status_info = "В наличии"
+
+        return (f"Автомобиль марка/модель: {self.__brand} {self.__model}\n"
+                f"Год выпуска: {self.__year_manufacture} г.\n"
+                f"Стоимость: {self.__price} руб.\n"
+                f"Статус: {status_info}")
+
+    def __repr__(self):
+        return f"Car('{self.__brand}', '{self.__model}, {self.__year_manufacture}"
+
+    def get_brand(self):
+        return self.__brand
+
+    def get_model(self):
+        return self.__model
+
+    def get_year(self):
+        return self.__year_manufacture
+
+    def get_price(self):
+        return self.__price
+
+    def get_status(self):
+        return self.__status
+
+    def set_brand(self, new_brand):
+
+        if not isinstance(new_brand, str): raise ValueError("Бренд должен быть строкой")
+        self.__brand = new_brand
+
+    def set_model(self, new_model):
+
+        if not isinstance(new_model, str): raise ValueError("Модель должна быть строкой")
+        self.__model = new_model
+
+    def set_year(self, new_year):
+
+        if not isinstance(new_year, int) and not (1900 < new_year): raise ValueError("Год должен быть натуральным числом от 1900 года и выше")
+        self.__year_manufacture = new_year
+
+    def set_price(self, new_price):
+
+        if not isinstance(new_price, float) and not (0 < new_price): raise ValueError("Цена должна быть натуральным числом больше нуля")
+        self.__price = new_price
+
+
+car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
+print(car1)
+print("-" * 10)
+car2 = Car("BMW", "X8", 2024, 5500000.20, 0)
+print(car2)
