@@ -368,7 +368,7 @@ class Employee:
 
         else: raise ValueError()
 
-    def remove_contact_info(self,):
+    def remove_contact_info(self):
 
         self.__contactinfo = None
 
@@ -416,7 +416,7 @@ class Car:
                 f"Статус: {status_info}")
 
     def __repr__(self):
-        return f"Car('{self.__brand}', '{self.__model}, {self.__year_manufacture}"
+        return f"Автомобиль: {self.__brand} {self.__model}, {self.__year_manufacture} г.в.; "
 
     def get_brand(self):
         return self.__brand
@@ -454,8 +454,60 @@ class Car:
         self.__price = new_price
 
 
+class Salesperson:
+
+    __name: str
+    __work_experience: float
+    __list_car: list[Car]
+    def __init__(self, name: str, work_experience: float):
+
+        self.__name = name
+        self.__work_experience = work_experience
+        self.__list_car: list [Car] = []
+
+    def __str__(self):
+        return f"Сотрудник: {self.__name}; Опыт работы: {self.__work_experience} г; Список проданных авто: {self.__list_car}"
+
+    def get_name(self):
+        return self.__name
+
+    def get_work_experience(self):
+        return self.__work_experience
+
+    def get_car(self):
+        return self.__list_car
+
+    def set_name(self, new_name):
+
+        if not isinstance(new_name, str): raise ValueError("Имя должно быть строкой")
+        self.__name = new_name
+
+    def set_work_experience(self, new_experience):
+
+        if not isinstance(new_experience, int | float): raise ValueError("Опыт должен быть float")
+        self.__work_experience = float(new_experience)
+
+    def add_car(self, new_car):
+
+       if not isinstance(new_car, Car): raise ValueError("Объект должен быть Car")
+       self.__list_car.append(new_car)
+
+    def remove_car(self, car):
+
+        self.__list_car.remove(car)
+
+
 car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
 print(car1)
 print("-" * 10)
 car2 = Car("BMW", "X8", 2024, 5500000.20, 0)
 print(car2)
+sal = Salesperson("Витя", 2.5)
+sal.add_car(car1)
+sal.add_car(car2)
+print(sal)
+print(sal.get_car())
+price = car1.get_price() + car2.get_price()
+print(Car.get_price(car1))
+print(Car.get_price(car2))
+print(price)
