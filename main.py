@@ -445,7 +445,7 @@ class Car:
 
     def set_year(self, new_year):
 
-        if not isinstance(new_year, int) and not (1900 < new_year): raise ValueError("Год должен быть натуральным числом от 1900 года и выше")
+        if not isinstance(new_year, int) or not (new_year < 1900): raise ValueError("Год должен быть натуральным числом от 1900 года и выше")
         self.__year_manufacture = new_year
 
     def set_price(self, new_price):
@@ -459,6 +459,7 @@ class Salesperson:
     __name: str
     __work_experience: float
     __list_car: list[Car]
+
     def __init__(self, name: str, work_experience: float):
 
         self.__name = name
@@ -497,11 +498,66 @@ class Salesperson:
         self.__list_car.remove(car)
 
 
+class Customer:
+
+    __name: str
+    __tel: str
+    __e_mail: str
+
+    def __init__(self, name: str, tel: str, e_mail: str):
+
+        self.__name = name
+        self.__tel = tel
+        self.__e_mail = e_mail
+        self.__list_car: list[Car] = []
+
+    def __str__(self):
+        return (f"Клиент: {self.__name}; Контактные данные: Тел. {self.__tel}, E-mail: {self.__e_mail};\n"
+                f"Список приобретенных (заказанных) автомобилей: {self.__list_car}")
+
+    def __repr__(self):
+        return f"Клиент: {self.__name}. Список авто: {self.__list_car}"
+
+    def get_name(self):
+        return f"{self.__name}"
+
+    def get_tel(self):
+        return f"{self.__tel}"
+
+    def get_e_mail(self):
+        return f"{self.__e_mail}"
+
+    def get_car(self):
+        return f"{self.__list_car}"
+
+    def set_name(self, new_name):
+
+        if not isinstance(new_name, str): raise ValueError("Имя должно быть строкой")
+        self.__name = new_name
+
+    def set_tel(self, new_tel):
+
+        if not isinstance(new_tel, str): raise ValueError("Тел. должен быть строкой")
+        self.__tel = new_tel
+
+    def set_e_mail(self, new_e_mail):
+
+        if not isinstance(new_e_mail, str): raise ValueError("E-mail, должен быть строкой")
+        self.__e_mail = new_e_mail
+
+    def add_car(self, new_car):
+        self.__list_car.append(new_car)
+
+    def remove_car(self, car):
+        self.__list_car.remove(car)
+
+
 car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
 print(car1)
 print("-" * 10)
 car2 = Car("BMW", "X8", 2024, 5500000.20, 0)
 print(car2)
+print("-" * 10)
 sal = Salesperson("Витя", 2.5)
 sal.add_car(car1)
 sal.add_car(car2)
@@ -511,3 +567,8 @@ price = car1.get_price() + car2.get_price()
 print(Car.get_price(car1))
 print(Car.get_price(car2))
 print(price)
+print("*" * 25)
+cust = Customer("Алексей", "+7-935-255-11-00", "e@pes.fu")
+cust.add_car(car1)
+cust.add_car(car2)
+print(cust)
