@@ -469,6 +469,9 @@ class Salesperson:
     def __str__(self):
         return f"Сотрудник: {self.__name}; Опыт работы: {self.__work_experience} г; Список проданных авто: {self.__list_car}"
 
+    def __repr__(self):
+        return f"Сотрудник {self.__name}. Стаж {self.__work_experience} г."
+
     def get_name(self):
         return self.__name
 
@@ -552,23 +555,118 @@ class Customer:
         self.__list_car.remove(car)
 
 
-car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
-print(car1)
-print("-" * 10)
-car2 = Car("BMW", "X8", 2024, 5500000.20, 0)
-print(car2)
-print("-" * 10)
-sal = Salesperson("Витя", 2.5)
-sal.add_car(car1)
-sal.add_car(car2)
-print(sal)
-print(sal.get_car())
-price = car1.get_price() + car2.get_price()
-print(Car.get_price(car1))
-print(Car.get_price(car2))
-print(price)
-print("*" * 25)
-cust = Customer("Алексей", "+7-935-255-11-00", "e@pes.fu")
-cust.add_car(car1)
-cust.add_car(car2)
-print(cust)
+class Dealership:
+
+    __name: str
+    __address: str
+    __list_car: list[Car]
+    __list_salesperson: list[Salesperson]
+    __list_customer: list[Customer]
+    __list_rem_salesperson: list[Salesperson]
+
+    def __init__(self, name: str, address: str):
+
+        self.__name = name
+        self.__address = address
+        self.__list_car = []
+        self.__list_salesperson = []
+        self.__list_customer = []
+        self.__list_rem_salesperson = []
+
+    def __str__(self):
+
+        cars_is_stock = [car for car in self.__list_car if car.get_status() == Car.CONST_IS_STOCK]  # в наличии
+        cars_expected = [car for car in self.__list_car if car.get_status() == Car.CONST_EXPECTED]  # ожидаются (в заказе)
+        cars_sold = [car for car in self.__list_car if car.get_status() == Car.CONST_SOLD]  # Проданы
+        salespersons = [sal for sal in self.__list_salesperson]
+        salespersons_rem = [sal for sal in self.__list_rem_salesperson]
+        customers = [custom for custom in self.__list_customer]
+
+
+        return (f"Автосалон '{self.__name}'. Адрес: {self.__address}\n"
+                f"Автомобилей в наличии: {len(cars_is_stock)} шт. Список: {cars_is_stock}\n"
+                f"Автомобили в заказе: {len(cars_expected)} шт. Список: {cars_expected}\n"
+                f"Автомобилей продано: {len(cars_sold)} шт. Список: {cars_sold}\n"
+                f"{"-" * 20}\n"
+                f"Сотрудники автосалона. Количество действующих: {len(salespersons)} чел. Список: {salespersons}\n"
+                f"Уволенные сотрудники. Количество {len(self.__list_rem_salesperson)} чел. Список: {self.__list_rem_salesperson}\n"
+                f"{"-" * 20}\n"
+                f"Клиенты автосалона. Количество: {len(customers)} чел. Список: {customers}")
+
+    def __repr__(self):
+        return f"{self.__name}. {self.__address}"
+
+    def get_list_car(self):
+        return self.__list_car
+
+    def get_list_salesperson(self):
+        return self.__list_salesperson
+
+    def get_list_customer(self):
+        return self.__list_customer
+
+    def add_car(self, new_car):
+
+        if not isinstance(new_car, Car): raise ValueError("Неверный объект. Должен быть объект класса Car")
+        self.__list_car.append(new_car)
+
+    def add_salesperson(self, new_salesperson):
+
+        if not isinstance(new_salesperson, Salesperson): raise ValueError("Неверный объект. Должен быть объект класса Salesperson")
+        self.__list_salesperson.append(new_salesperson)
+
+    def add_customer(self, new_customer):
+
+        if not isinstance(new_customer, Customer): raise ValueError("Неверный объект. Должен быть объект класса Customer")
+        self.__list_customer.append(new_customer)
+
+    def remove_car(self, car):
+
+        if car in self.__list_car:
+            self.__list_car.remove(car)
+
+    def remove_salesperson(self, manager):
+
+        if manager in self.__list_salesperson:
+            self.__list_rem_salesperson.append(manager)
+            self.__list_salesperson.remove(manager)
+
+
+
+
+# car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
+# print(car1)
+# print("-" * 10)
+# car2 = Car("BMW", "X8", 2024, 5500000.20, 0)
+# print(car2)
+# print("-" * 10)
+# sal = Salesperson("Витя", 2.5)
+# sal.add_car(car1)
+# sal.add_car(car2)
+# print(sal)
+# print(sal.get_car())
+# price = car1.get_price() + car2.get_price()
+# print(Car.get_price(car1))
+# print(Car.get_price(car2))
+# print(price)
+# print("*" * 25)
+# cust = Customer("Алексей", "+7-935-255-11-00", "e@pes.fu")
+# cust.add_car(car1)
+# cust.add_car(car2)
+# print(cust)
+# print("-" * 20)
+# my_dealer = Dealership("Major Auto", "ул. Ленина, 10")
+# Ivan = Salesperson("Иван", 5.0)
+# Toyota = Car("Toyota", "Camry", 2024, 3500000.0, Car.CONST_IS_STOCK)
+# my_dealer.add_salesperson(Ivan)
+# my_dealer.add_car(Toyota)
+# Ivan.add_car(Toyota)
+# print(my_dealer)
+# print("-" * 20)
+# Vitya = Salesperson("Витя", 2.5)
+# my_dealer.add_salesperson(Vitya)
+#
+# print(my_dealer)
+# my_dealer.remove_salesperson(Vitya)
+#
+# print(my_dealer)
