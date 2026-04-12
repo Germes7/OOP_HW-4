@@ -464,7 +464,7 @@ class Salesperson:
 
         self.__name = name
         self.__work_experience = work_experience
-        self.__list_car: list [Car] = []
+        self.__list_car: list[Car] = []
 
     def __str__(self):
         return f"Сотрудник: {self.__name}; Опыт работы: {self.__work_experience} г; Список проданных авто: {self.__list_car}"
@@ -479,7 +479,7 @@ class Salesperson:
         return self.__work_experience
 
     def get_car(self):
-        return self.__list_car
+        return self.__list_car.copy()
 
     def set_name(self, new_name):
 
@@ -493,8 +493,8 @@ class Salesperson:
 
     def add_car(self, new_car):
 
-       if not isinstance(new_car, Car): raise ValueError("Объект должен быть Car")
-       self.__list_car.append(new_car)
+        if not isinstance(new_car, Car): raise ValueError("Объект должен быть Car")
+        self.__list_car.append(new_car)
 
     def remove_car(self, car):
 
@@ -531,7 +531,7 @@ class Customer:
         return f"{self.__e_mail}"
 
     def get_car(self):
-        return f"{self.__list_car}"
+        return f"{self.__list_car.copy()}"
 
     def set_name(self, new_name):
 
@@ -587,7 +587,7 @@ class Dealership:
                 f"Автомобилей в наличии: {len(cars_is_stock)} шт. Список: {cars_is_stock}\n"
                 f"Автомобили в заказе: {len(cars_expected)} шт. Список: {cars_expected}\n"
                 f"Автомобилей продано: {len(cars_sold)} шт. Список: {cars_sold}\n"
-                f"{"-" * 20}\n"
+                f"{'-' * 20}\n"
                 f"Сотрудники автосалона. Количество действующих: {len(salespersons)} чел. Список: {salespersons}\n"
                 f"Уволенные сотрудники. Количество {len(self.__list_rem_salesperson)} чел. Список: {self.__list_rem_salesperson}\n"
                 f"{"-" * 20}\n"
@@ -597,13 +597,13 @@ class Dealership:
         return f"{self.__name}. {self.__address}"
 
     def get_list_car(self):
-        return self.__list_car
+        return self.__list_car.copy()
 
     def get_list_salesperson(self):
-        return self.__list_salesperson
+        return self.__list_salesperson.copy()
 
     def get_list_customer(self):
-        return self.__list_customer
+        return self.__list_customer.copy()
 
     def add_car(self, new_car):
 
@@ -630,8 +630,6 @@ class Dealership:
         if manager in self.__list_salesperson:
             self.__list_rem_salesperson.append(manager)
             self.__list_salesperson.remove(manager)
-
-
 
 
 # car1 = Car("Toyota", "Crown", 2026, 7000000, 2)
@@ -670,3 +668,4 @@ class Dealership:
 # my_dealer.remove_salesperson(Vitya)
 #
 # print(my_dealer)
+# Создаем автосалон и добавляем машину
